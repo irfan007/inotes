@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render_to_response
 from createNote.models import Note
 from django.db.models import Q
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.http.response import HttpResponseRedirect
+from datetime import datetime
 from createNote.custom_validate import i_invalidFieldException, i_validateField
 def v_search_home(req):
     if req.method=="POST":
@@ -72,6 +73,7 @@ def v_edit_content(req,note_id):
             n.category=category
             n.keywords=keywords
             n.content=content
+            n.last_edit=datetime.today()
             n.save()
             return HttpResponseRedirect('/content/id_'+note_id)
     else:
@@ -99,7 +101,8 @@ def v_add_content(req):
                    category=category,
                    keywords=keywords,
                    content=content,
-                   owner=req.user
+                   owner=req.user,
+                   last_edit=datetime.today()
                    )
             n.save()
             return HttpResponseRedirect('/content/id_'+str(n.id))
