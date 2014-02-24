@@ -1,0 +1,21 @@
+         {% extends "search_home.html" %}
+  		
+  		{%block body%}
+  		{%if note %}
+  		<tr><td colspan="4"><hr/></td></tr>
+  		<tr height="95%">
+  		    <td valign="top" colspan="4">
+  		     	{% block text %} {{note.content|safe}} {% endblock %}
+  		     	
+		</td>
+  		</tr>
+  		{%else%}
+  		<tr><td colspan="4"><hr/></td></tr>
+  		<tr height="95%">
+  		    <td valign="top" class="title_font" colspan="3">
+  		     	sorry,content not found !
+		</td>
+  		</tr>
+  		{%endif%}
+  		{%endblock%}
+

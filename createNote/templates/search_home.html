@@ -1,0 +1,68 @@
+
+<html>
+    <head><title>NOTES</title>
+    <style>
+    .title_font{font-family:"Times New Roman", Times, serif;font-size:px;}
+    .cat_font{font-family:"Arial", Times, serif;font-size:10px;}
+    .search_input{font-size:20px;border:1px solid black;padding-left:5px;}
+    .search_button{background:lightgrey;font-size:20px;border:1px solid black;}
+    </style>
+    
+    {% block extend_head %}	 {% endblock %}
+      
+    </head>
+    <body>
+    	<table border="0" align="center"  height="100%" width="100%">
+    		<tr align="center" >
+    		    <td>
+    		    <form method="post" action="/">
+    		    <input type="text" name="search_term" value="{{search_term}}" class="search_input" /><input type="submit" value="Search" class="search_button"/>
+    		    </form>
+    		    </td>
+    		    {% if req.user.is_authenticated %}
+    		    
+    		    {%if not add%}
+    		    <td width="4%"><a href="/add_content/">Add</a></td>
+    		    {%endif%}
+    		    
+    		    {% if req.user == note.owner and not edit%}
+    		    <td width="4%">
+  		     	<a href="/content/edit_{{note.id}}">Edit</a>
+  		     	</td>
+  		     	{%endif%}
+    		    
+    		    <td width="4%"><a href="/logout/">Logout</a></td>
+    		    {%endif%}
+    		</tr>
+    		
+    		{% block body %}
+    		{%if bypost%}
+    		<tr><td colspan="4"><hr/></td></tr>
+    		
+    		<tr height="95%" >
+    		    
+    		    <td valign="top" colspan="4">
+    		        
+	    		        {% for note in notes %}
+		    		    <table border="0" cellpadding="5" width="90%">
+							    <tr><td  colspan="4"><a href="/content/id_{{note.id}}/" class="title_font"> {{ note.title|title }} </a></td></tr>
+								<tr>
+									<td width="20%" class="cat_font">Category : {{note.category|title}} &nbsp; |   Last Edit : {{ note.last_edit|date:"d / m / Y" }} </td>
+								</tr>
+								<tr><td colspan="4"><br/></td></tr>
+								
+						</table>
+						{% empty %}
+						 <h5 align="center">  NO RESULTS ! </h5>
+						{% endfor %}
+					
+					
+				</td>
+    		</tr>
+    		{%endif%}
+    		{% endblock %}
+    		
+    	</table>
+    </body>
+</html>
+

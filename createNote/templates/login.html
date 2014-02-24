@@ -1,0 +1,39 @@
+       
+
+
+
+
+<form method="post" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+
+
+  <table  border="0" align="center" style="margin-top:20%" >
+   <tr>
+   		<td colspan="2">
+   			<ul>
+			{%for e in errors %}
+			<li style="color:red;">{{e}}</li>
+			{%endfor%}
+			</ul>
+   		</td>
+   </tr>
+   <tr>
+   <td>Username <sup>*</sup> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   <td><input type="text" value="{{username}}" name="username" required></td>
+   </tr>
+    
+   <tr>
+   <td>Password <sup>*</sup></td>
+   <td><input type="password" value="{{password}}" name="password" required></td>
+   </tr>
+   
+   <tr>
+   <td colspan="2"><br/></td>
+   </tr>
+   
+   <tr>
+   <td colspan="2"><input type="submit" value="Login"/><br/></td>
+   </tr>
+   
+ </table>
+
+</form>
